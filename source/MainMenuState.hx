@@ -149,7 +149,7 @@ class MainMenuState extends MusicBeatState
 		fgf.visible = false;*/
 		
 		var BF:FlxSprite = new FlxSprite();
-		BF.frames = Paths.image('characters/BOYFRIEND', 'shared')
+		BF.frames = Paths.image('characters/BOYFRIEND', 'shared');
 		BF.animation.add('idle', 'BF idle dance', 24, true);
 		BF.animation.play('idle');
 		BF.setGraphicSize(Std.int(BF.width * 5/6));
