@@ -138,13 +138,13 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 		
-		sbf = new Characters(500, -130, 'bf', true);
-		sbf.setGrapicSize(Std.int(sbf.width * 0.8));
+		sbf = new Character(500, -130, 'bf', true);
+		sbf.setGraphicSize(Std.int(sbf.width * 0.8));
 		add(sbf);
 		sbf.visible = false;
 		
-		fgf = new Characters(500, -130, 'gf', true);
-		fgfsetGrapicSize(Std.int(sbf.width * 0.8));
+		fgf = new Character(500, -130, 'gf', true);
+		fgf.setGraphicSize(Std.int(sbf.width * 0.8));
 		add(fgf);
 		fgf.visible = false;
 
