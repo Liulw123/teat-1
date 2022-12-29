@@ -29,8 +29,8 @@ class MainMenuState extends MusicBeatState
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
+	/*private var camGame:FlxCamera;
+	private var camAchievement:FlxCamera;*/
 	
 	var optionShit:Array<String> = [
 		'story_mode',
@@ -138,7 +138,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 		
-		sbf = new Character(500, -130, 'bf', true);
+		/*sbf = new Character(500, -130, 'bf', true);
 		sbf.setGraphicSize(Std.int(sbf.width * 0.8));
 		add(sbf);
 		sbf.visible = false;
@@ -146,7 +146,16 @@ class MainMenuState extends MusicBeatState
 		fgf = new Character(500, -130, 'gf', true);
 		fgf.setGraphicSize(Std.int(sbf.width * 0.8));
 		add(fgf);
-		fgf.visible = false;
+		fgf.visible = false;*/
+		
+		var BF:FlxSprite = new FlxSprite().loadGraphic(Paths.image('characters/BOYFRIEND', 'shared'), true, 1144, 940);
+		BF.animation.add("idle", 'BF idle dance', 24, true);
+		BF.animation.play("idle");
+		BF.setGraphicSize(Std.int(BF.width * 5/6));
+		BF.updateHitbox();
+		BF.setPosition(1280 - BF.width, 720 - BF.height);
+		add(BF);
+
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
@@ -203,7 +212,7 @@ class MainMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		
-		if(optionShit[curSelected] == 'story_mode')
+		/*if(optionShit[curSelected] == 'story_mode')
 		{
 		    changeItem(-1);
 		    changeItem(1);
@@ -229,7 +238,7 @@ class MainMenuState extends MusicBeatState
 		else
 		{
 		    fgf.visible = true;
-		}
+		}*/
 
 		if (!selectedSomethin)
 		{
