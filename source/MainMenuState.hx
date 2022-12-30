@@ -87,7 +87,7 @@ class MainMenuState extends MusicBeatState
 		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
 		bffuckingdead.animation.play('idle');
 		bffuckingdead.updateHitbox();
-		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 500, FlxG.height - bffuckingdead.height + 500);
+		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 0, FlxG.height - bffuckingdead.height + 0);
 		add(bffuckingdead);
 		
 	var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
