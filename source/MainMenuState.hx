@@ -86,7 +86,6 @@ class MainMenuState extends MusicBeatState
 		bffuckingdead.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
 		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
 		bffuckingdead.animation.play('idle');
-		bffuckingdead.setGraphicSize(Std.int(bffuckingdead.width * 1));
 		bffuckingdead.updateHitbox();
 		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 500, FlxG.height - bffuckingdead.height + 500);
 		add(bffuckingdead);
