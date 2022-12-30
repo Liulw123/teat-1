@@ -82,15 +82,13 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);		
 		
-		var bffuckingdead:FlxSprite = new FlxSprite();
+		var bffuckingdead:FlxSprite = (FlxG.width * 0.4, FlxG.height * 0.07);
 		bffuckingdead.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
-		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
-		bffuckingdead.animation.play('idle');
-		bffuckingdead.updateHitbox();
-		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 0, FlxG.height - bffuckingdead.height + 0);
+		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true)
+		bffuckingdead.animation.play('idle')
 		add(bffuckingdead);
 		
-	var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
+		var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
 		menuUI.scrollFactor.set(0, 0);
 		menuUI.setGraphicSize(Std.int(menuUI.width * 1));
 		menuUI.antialiasing = ClientPrefs.globalAntialiasing;
@@ -132,7 +130,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.x = 70;
+			menuItem.x = 700;
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
