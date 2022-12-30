@@ -46,6 +46,10 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	
+	var gfDance:FlxSprite;      //to put the gf on the menu mme
+	var danceLeft:Bool = false;
+
 
 	override function create()
 	{
@@ -82,11 +86,11 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);		
 		
-		var bffuckingdead:FlxSprite = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
+		/*var bffuckingdead:FlxSprite = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
 		bffuckingdead.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
 		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
 		bffuckingdead.animation.play('idle');
-		add(bffuckingdead);
+		add(bffuckingdead);*/
 		
 		var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
 		menuUI.scrollFactor.set(0, 0);
@@ -150,6 +154,18 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+		
+			gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
+			gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
+			gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, true);
+			add(gfDance);
+
+			if(gfDance != null) {
+				danceLeft = !danceLeft;
+	
+				if (danceLeft)
+					gfDance.animation.play('danceLeft');
+			}
 
 		// NG.core.calls.event.logEvent('swag').send();
 
