@@ -83,7 +83,7 @@ class MainMenuState extends MusicBeatState
 		add(bg);		
 		
 		var bffuckingdead:FlxSprite = new FlxSprite();
-		bffuckingdead.frames = Paths.images('character/BOYFRIEND', 'shared');
+		bffuckingdead.frames = Paths.getSparrowAtlas('character/BOYFRIEND', 'shared');
 		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
 		bffuckingdead.animation.play('idle');
 		bffuckingdead.setGraphicSize(Std.int(bffuckingdead.width * 5/6));
