@@ -88,10 +88,10 @@ class MainMenuState extends MusicBeatState
 		bffuckingdead.animation.play('idle');
 		bffuckingdead.setGraphicSize(Std.int(bffuckingdead.width * 5/6));
 		bffuckingdead.updateHitbox();
-		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 100, FlxG.height - bffuckingdead.height + 100);
+		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 500, FlxG.height - bffuckingdead.height + 500);
 		add(bffuckingdead);
 		
-		var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
+	var menuUI:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('menu-UI'));
 		menuUI.scrollFactor.set(0, 0);
 		menuUI.setGraphicSize(Std.int(menuUI.width * 1));
 		menuUI.antialiasing = ClientPrefs.globalAntialiasing;
