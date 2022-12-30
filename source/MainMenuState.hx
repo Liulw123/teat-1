@@ -138,25 +138,15 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 		
-		/*sbf = new Character(500, -130, 'bf', true);
-		sbf.setGraphicSize(Std.int(sbf.width * 0.8));
-		add(sbf);
-		sbf.visible = false;
 		
-		fgf = new Character(500, -130, 'gf', true);
-		fgf.setGraphicSize(Std.int(sbf.width * 0.8));
-		add(fgf);
-		fgf.visible = false;*/
-		
-		var BF:FlxSprite = new FlxSprite();
-		BF.frames = Paths.image('characters/BOYFRIEND', 'shared');
-		BF.animation.add('idle', 'BF idle dance', 24, true);
-		BF.animation.play('idle');
-		BF.setGraphicSize(Std.int(BF.width * 5/6));
-		BF.updateHitbox();
-		BF.setPosition(1280 - BF.width, 720 - BF.height);
-		add(BF);
-
+		var bffuckingdead:FlxSprite = new FlxSprite();
+		bffuckingdead.frames = Paths.images('character/BOYFRIEND', 'shared');
+		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
+		bffuckingdead.animation.play('idle');
+		bffuckingdead.setGraphicSize(Std.int(bffuckingdead.width * 5/6));
+		bffuckingdead.updateHitbox();
+		bffuckingdead.setPosition(FlxG.width - bffuckingdead.width + 100, FlxG.height - bffuckingdead.height + 100);
+		add(bffuckingdead);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
