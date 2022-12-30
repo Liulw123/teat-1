@@ -23,16 +23,18 @@ class FlashingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 		
-		var redfont = new FlxTextFormatMarkerPair(new FlxTextFormat(FlxColor.RED, true, true), '^');
+		var yellowfont = new FlxTextFormatMarkerPair(new FlxTextFormat(FlxColor.YELLOW, true, true), '^');
+
 
 		warnText = new FlxText(0, 0, FlxG.width,
 			"^Hey, watch out!^\n
-			This engine maker is '^ye_nb^'\n
+			This engine maker is ^ye_nb^!\n
 			Press ^ENTER/A^ to disable them now or go to Options Menu.\n
 			Press ^ESCAPE/B^ to ignore this message.\n
 			You've been warned!",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		warnText.applyMarkup(warnText.text, [yellowfont]);
 		warnText.screenCenter(Y);
 		add(warnText);
 
