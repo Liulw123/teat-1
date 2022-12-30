@@ -84,8 +84,8 @@ class MainMenuState extends MusicBeatState
 		
 		var bffuckingdead:FlxSprite = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
 		bffuckingdead.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
-		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true)
-		bffuckingdead.animation.play('idle')
+		bffuckingdead.animation.addByPrefix('idle', 'BF idle dance', 24, true);
+		bffuckingdead.animation.play('idle');
 		bffuckingdead.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bffuckingdead);
 		
