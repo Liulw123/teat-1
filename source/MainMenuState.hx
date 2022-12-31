@@ -64,14 +64,13 @@ class MainMenuState extends MusicBeatState
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
+		camGame = new FlxCamera();
+		camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement, false);
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.add(camAchievement);
+		FlxCamera.defaultCameras = [camGame];
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -145,7 +144,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 		}
 
-		FlxG.camera.follow(camFollowPos, null, 1);
+		// FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
