@@ -1,4 +1,4 @@
-package;
+<package;
 
 #if desktop
 import Discord.DiscordClient;
@@ -131,7 +131,7 @@ class FreeplayState extends MusicBeatState
 			iconArray.push(icon);
 			add(icon);
 
-		    songText.x = 40;
+		    songText.x = 500;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
 		}
