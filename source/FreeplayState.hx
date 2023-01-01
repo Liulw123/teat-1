@@ -113,6 +113,7 @@ class FreeplayState extends MusicBeatState
 		{
 			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
 			songText.isMenuItem = true;
+			songText.isMenuItemCentered = true;
 			songText.targetY = i - curSelected;
 			grpSongs.add(songText);
 
@@ -131,7 +132,7 @@ class FreeplayState extends MusicBeatState
 			iconArray.push(icon);
 			add(icon);
 
-		    songText.x = 500;
+		    // songText.x = 500;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
 		}
