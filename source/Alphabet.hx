@@ -33,6 +33,7 @@ class Alphabet extends FlxSpriteGroup
 	public var changeY:Bool = true;
 
 	public var alignment(default, set):Alignment = LEFT;
+	public var forceX:Float = Math.NEGATIVE_INFINITY;
 	public var scaleX(default, set):Float = 1;
 	public var scaleY(default, set):Float = 1;
 	public var rows:Int = 0;
@@ -43,6 +44,7 @@ class Alphabet extends FlxSpriteGroup
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true)
 	{
 		super(x, y);
+		forceX = Math.NEGATIVE_INFINITY;
 
 		this.startPosition.x = x;
 		this.startPosition.y = y;
@@ -213,7 +215,7 @@ class Alphabet extends FlxSpriteGroup
 				if (spaceChar) consecutiveSpaces++;
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
-				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
+				if (AlphaCharacter.allLetters.exists(character.toLower()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
 					{
