@@ -29,6 +29,7 @@ class Alphabet extends FlxSpriteGroup
 	public var isMenuItem:Bool = false;
 	public var isMenuItemCentered:Bool = false;
 	public var targetY:Int = 0;
+	public var xAdd:Float = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
 
@@ -215,7 +216,7 @@ class Alphabet extends FlxSpriteGroup
 				if (spaceChar) consecutiveSpaces++;
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
-				if (AlphaCharacter.allLetters.exists(character.toLower()) && (!bold || !spaceChar))
+				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
 					{
