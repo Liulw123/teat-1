@@ -167,20 +167,23 @@ class Alphabet extends FlxSpriteGroup
 			if(changeY)
 				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
 				
-			if (isMenuItemCentered)
+			if(isMenuItemCentered)
 			{
-				var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
-				y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
+				screenCenter(X);
+			}
+			else
+			{
 				if(forceX != Math.NEGATIVE_INFINITY) {
-					screenCenter(X);
+					x = forceX;
 				} else {
-					screenCenter(X);
+					x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
 				}
-			}		
+			}
 		}
+
 		super.update(elapsed);
 	}
-
+	
 	public function snapToPosition()
 	{
 		if (isMenuItem)
@@ -210,7 +213,7 @@ class Alphabet extends FlxSpriteGroup
 				if (spaceChar) consecutiveSpaces++;
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
-				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
+				if (AlphaCharacter.allLetters.exists(character.toLower()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
 					{
