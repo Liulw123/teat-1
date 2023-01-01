@@ -213,7 +213,7 @@ class Alphabet extends FlxSpriteGroup
 				if (spaceChar) consecutiveSpaces++;
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
-				if (AlphaCharacter.allLetters.exists(character.toLower()) && (!bold || !spaceChar))
+				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
 					{
