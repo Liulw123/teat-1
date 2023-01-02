@@ -45,7 +45,7 @@ class CreditsState extends MusicBeatState
 		#end
 
 		persistentUpdate = true;
-		bg = new FlxSprite().loadGraphic(Paths.image('credits/bg'));
+		bg = new FlxSprite().loadGraphic(Paths.image('nenuDesat'));
 		add(bg);
 		bg.screenCenter();
 		
