@@ -1623,6 +1623,9 @@ class ChartingState extends MusicBeatState
 		} else {
 			dummyArrow.visible = false;
 		}
+	}
+	
+	#else
 		
 		if (FlxG.mouse.justPressed)
 		{
@@ -2774,7 +2777,7 @@ class ChartingState extends MusicBeatState
 		return spr;
 	}
 
-   private function addSection(sectionBeats:Float = 4):Void
+	private function addSection(sectionBeats:Float = 4):Void
 	{
 		var sec:SwagSection = {
 			sectionBeats: sectionBeats,
