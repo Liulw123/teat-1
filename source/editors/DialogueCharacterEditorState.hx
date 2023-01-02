@@ -171,7 +171,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		#if android
 		addVirtualPad(FULL, A_B_C_X_Y);
 		addPadCamera();
-		_virtualpad.y = -300;
+		virtualPad.y = -300;
 		#end
 		
 		super.create();
@@ -574,7 +574,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if android || VirtualPad.buttonLeft.justPressed #end, FlxG.keys.justPressed.UP #if android || VirtualPad.buttonUp.justPressed #end, FlxG.keys.justPressed.RIGHT #if android || VirtualPad.buttonRight.justPressed #end, FlxG.keys.justPressed.DOWN #if android || VirtualPad.buttonDown.justPressed #end];
 				
 				#if android
-				if (_virtualpad.buttonC.pressed)
+				if (virtualPad.buttonC.pressed)
 				{
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
