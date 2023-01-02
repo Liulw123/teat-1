@@ -1,3 +1,4 @@
+// 此代码安卓设置并未完善&&This Android setting is not perfect
 package editors;
 
 #if desktop
@@ -46,7 +47,11 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
-
+#if android
+import android.flixel.FlxButton;
+#else
+import flixel.ui.FlxButton;
+#end
 using StringTools;
 #if sys
 import flash.media.Sound;
@@ -277,7 +282,7 @@ class ChartingState extends MusicBeatState
 		if(curSec >= _song.notes.length) curSec = _song.notes.length - 1;
 
 		FlxG.mouse.visible = true;
-		//FlxG.save.bind('funkin' #if (flixel < "5.0.0"), 'ninjamuffin99' #end);
+		//FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		tempBpm = _song.bpm;
 
@@ -390,6 +395,11 @@ class ChartingState extends MusicBeatState
 		add(zoomTxt);
 
 		updateGrid();
+		
+		#if android
+		addVirtualPad(FULL, A_B_C_X_Y_Z);
+		#end
+		
 		super.create();
 	}
 
@@ -1565,16 +1575,43 @@ class ChartingState extends MusicBeatState
 		}
 		FlxG.watch.addQuick('daBeat', curBeat);
 		FlxG.watch.addQuick('daStep', curStep);
-
-
-		if (FlxG.mouse.x > gridBG.x
-			&& FlxG.mouse.x < gridBG.x + gridBG.width
-			&& FlxG.mouse.y > gridBG.y
-			&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
+		
+        #if android
+		for (touch in FlxG.touches.list)
 		{
-			dummyArrow.visible = true;
-			dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
-			if (FlxG.keys.pressed.SHIFT)
+			if (touch.justReleased)
+			{
+				if (touch.overlaps(curRenderedNotes))
+				{
+					curRenderedNotes.forEachAlive(function(note:Note)
+					{
+						if (touch.overlaps(note))
+						{
+							deleteNote(note);
+						}
+					});
+				}
+				else
+				{
+					if (touch.x > gridBG.x
+						&& touch.x < gridBG.x + gridBG.width
+						&& touch.y > gridBG.y
+						&& touch.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps) * zoomList[curZoom])
+					{
+						FlxG.log.add('added note');
+						addNote();
+					}
+				}
+			}
+
+			if (touch.x > gridBG.x
+				&& touch.x < gridBG.x + gridBG.width
+				&& touch.y > gridBG.y
+				&& touch.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps) * zoomList[curZoom])
+			{
+				dummyArrow.visible = true;
+				dummyArrow.x = Math.floor(touch.x / GRID_SIZE) * GRID_SIZE;
+				if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end)
 				dummyArrow.y = FlxG.mouse.y;
 			else
 			{
@@ -1664,12 +1701,12 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
-			if (FlxG.keys.justPressed.ESCAPE)
+			if (FlxG.keys.justPressed.ESCAPE  #if android || FlxG.android.justReleased.BACK #end)
 			{
 				autosaveSong();
 				LoadingState.loadAndSwitchState(new editors.EditorPlayState(sectionStartTime()));
 			}
-			if (FlxG.keys.justPressed.ENTER)
+					if (FlxG.keys.justPressed.ENTER #if android || _Virtualpad.buttonA.justPressed #end)
 			{
 				autosaveSong();
 				FlxG.mouse.visible = false;
@@ -1694,7 +1731,7 @@ class ChartingState extends MusicBeatState
 			}
 
 
-			if (FlxG.keys.justPressed.BACKSPACE) {
+			if (FlxG.keys.justPressed.BACKSPACE #if android || _virtualpad.buttonB.justPressed #end) {
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -1707,12 +1744,11 @@ class ChartingState extends MusicBeatState
 			}
 
 
-
-			if(FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(FlxG.keys.justPressed.Z #if android || _virtualpad.buttonZ.justPressed #end && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
-			if(FlxG.keys.justPressed.X && curZoom < zoomList.length-1) {
+			if(FlxG.keys.justPressed.X #if android || _virtualpad.buttonC.justPressed #end && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}
@@ -1733,7 +1769,8 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.SPACE)
+			
+			if (FlxG.keys.justPressed.SPACE #if android || _virtualpad.buttonX.justPressed #end)
 			{
 				if (FlxG.sound.music.playing)
 				{
@@ -1790,7 +1827,7 @@ class ChartingState extends MusicBeatState
 
 
 
-			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S)
+						if (FlxG.keys.pressed.W || FlxG.keys.pressed.S #if android || _virtualpad.buttonUp.pressed || _virtualpad.buttonDown.pressed #end)
 			{
 				FlxG.sound.music.pause();
 
@@ -1800,7 +1837,7 @@ class ChartingState extends MusicBeatState
 
 				var daTime:Float = 700 * FlxG.elapsed * holdingShift;
 
-				if (FlxG.keys.pressed.W)
+							if (FlxG.keys.pressed.W #if android || _virtualpad.buttonUp.pressed #end)
 				{
 					FlxG.sound.music.time -= daTime;
 				}
@@ -1814,7 +1851,7 @@ class ChartingState extends MusicBeatState
 			}
 
 			if(!vortex){
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN  )
+			if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN #if android || _virtualpad.buttonUp.justPressed || _virtualpad.buttonDown.justPressed #end)
 				{
 					FlxG.sound.music.pause();
 					updateCurStep();
@@ -1835,7 +1872,7 @@ class ChartingState extends MusicBeatState
 
 			var style = currentType;
 
-			if (FlxG.keys.pressed.SHIFT){
+						if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end){
 				style = 3;
 			}
 
@@ -1844,7 +1881,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT){
+			if (FlxG.keys.justPressed.RIGHT #if android || _virtualpad.buttonRight.justPressed #end){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -1852,7 +1889,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT){
+				if (FlxG.keys.justPressed.LEFT #if android || _virtualpad.buttonLeft.justPressed #end){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -1875,7 +1912,7 @@ class ChartingState extends MusicBeatState
 				}
 
 				var feces:Float;
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN  )
+				if (FlxG.keys.pressed.UP #if android || _virtualpad.buttonUp.pressed #end)
 				{
 					FlxG.sound.music.pause();
 
@@ -1930,7 +1967,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
-			if (FlxG.keys.pressed.SHIFT)
+			if (FlxG.keys.pressed.SHIFT #if android || _virtualpad.buttonY.pressed #end)
 				shiftThing = 4;
 
 			if (FlxG.keys.justPressed.D)

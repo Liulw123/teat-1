@@ -1,3 +1,4 @@
+// 并未设置安卓&&Android is not set
 package editors;
 
 #if desktop

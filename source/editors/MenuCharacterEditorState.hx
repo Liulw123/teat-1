@@ -27,9 +27,16 @@ import openfl.events.IOErrorEvent;
 import openfl.utils.Assets;
 import flash.net.FileFilter;
 import haxe.Json;
+#if android
+import android.flixel.FlxButton;
+#else
+import flixel.ui.FlxButton;
+#end
 #if sys
 import sys.io.File;
 #end
+
+//【纳尼，牧童早期母牛视频流出，鬼畜阴乐原版本-哔哩哔哩】 https://b23.tv/UIWskoe   【《没有地方住了》续集，豆瓣评分2.992-哔哩哔哩】 https://b23.tv/A9BiJAl
 
 using StringTools;
 
@@ -81,6 +88,11 @@ class MenuCharacterEditorState extends MusicBeatState
 		addEditorBox();
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
+
+	#if android
+		addVirtualPad(FULL, A_B);
+		_virtualpad.y = -300;
+		#end
 
 		super.create();
 	}
@@ -286,32 +298,32 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT #if android || VirtualPad.buttonA.justPressed #end) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT) {
+			if(FlxG.keys.justPressed.LEFT #if android || VirtualPad.buttonLeft.justPressed #end) {
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT) {
+			if(FlxG.keys.justPressed.RIGHT #if android || VirtualPad.buttonRight.justPressed #end) {
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP) {
+			if(FlxG.keys.justPressed.UP #if android || VirtualPad.buttonUp.justPressed #end) {
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN) {
+			if(FlxG.keys.justPressed.DOWN #if android || VirtualPad.buttonDown.justPressed #end) {
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}
 
-			if(FlxG.keys.justPressed.SPACE && curTypeSelected == 1) {
+			if(FlxG.keys.justPressed.SPACE #if android || VirtualPad.buttonB.justPressed #end && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}
