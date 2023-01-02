@@ -1146,8 +1146,8 @@ class PlayState extends MusicBeatState
 		}
 	
 	yenbTxt = new FlxText(876, 648, 348);
-        yenbTxt.text = "PORTED BY YE_NB";
-        yenbTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+        yenbTxt.text = "maker is ye_nb";
+        yenbTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
         yenbTxt.scrollFactor.set();
         add(yenbTxt);
 
@@ -2983,7 +2983,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);		
-		scoreTxt.text = 'Score: ' + songScore + ' | PORT BY YE_NB//NMSLQ | Misses: ' + songMisses + ' | Rating: ' + ratingName;
+		scoreTxt.text = 'Score: ' + songScore + ' | ye_ | Misses: ' + songMisses + ' | Rating: ' + ratingName;
 		if(ratingName != '?')
 			scoreTxt.text += ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;
 		if(botplayTxt.visible) {
