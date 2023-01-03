@@ -143,6 +143,8 @@
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
+	<haxelib name="extension-webview" if="android"/>
+	<haxelib name="extension-androidtools" if="android"/>
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
