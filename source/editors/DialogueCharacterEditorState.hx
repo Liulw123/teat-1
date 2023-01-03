@@ -836,5 +836,6 @@ class DialogueCharacterEditorState extends MusicBeatState
 
 		var text:String = prefix + Clipboard.text.replace('\n', '');
 		return text;
+		}
 	}
 }
