@@ -169,9 +169,9 @@ class DialogueCharacterEditorState extends MusicBeatState
 		updateCharTypeBox();
 		
 		#if android
-		addVirtualPad(FULL, A_B_C_X_Y);
-		addPadCamera();
-		virtualPad.y = -300;
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y);
+		// addPadCamera();
+		// virtualPad.y = -300; //it can not use, i don't know why
 		#end
 		
 		super.create();
