@@ -56,8 +56,9 @@ jobs:
           haxelib --quiet install flixel-addons
           haxelib --quiet install hxCodec
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
+          haxelib git extension-webview https://github.com/MatheusSilver/extension-webview
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
           haxelib list
-
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
 
