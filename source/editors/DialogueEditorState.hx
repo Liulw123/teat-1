@@ -363,7 +363,7 @@ class DialogueEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE #if android || VirtualPad.buttonC.justPressed #end) {
+			if(FlxG.keys.justPressed.SPACE #if android || virtualPad.buttonC.justPressed #end) {
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
@@ -372,8 +372,8 @@ class DialogueEditorState extends MusicBeatState
 				transitioning = true;
 			}
 			var negaMult:Array<Int> = [1, -1];
-			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if android || VirtualPad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if android || VirtualPad.buttonDown.justPressed #end];
-			var controlText:Array<Bool> = [FlxG.keys.justPressed.D #if android || VirtualPad.buttonLeft.justPressed #end, FlxG.keys.justPressed.A #if android || VirtualPad.buttonRight.justPressed #end];
+			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if android || virtualPad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if android || virtualPad.buttonDown.justPressed #end];
+			var controlText:Array<Bool> = [FlxG.keys.justPressed.D #if android || virtualPad.buttonLeft.justPressed #end, FlxG.keys.justPressed.A #if android || virtualPad.buttonRight.justPressed #end];
 			for (i in 0...controlAnim.length) {
 				if(controlAnim[i] && character.jsonFile.animations.length > 0) {
 					curAnim -= negaMult[i];
@@ -392,7 +392,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O,#if android || VirtualPad.buttonA.justPressed #end) {
+			if(FlxG.keys.justPressed.O,#if android || virtualPad.buttonA.justPressed #end) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
@@ -401,7 +401,7 @@ class DialogueEditorState extends MusicBeatState
 					];
 				}
 				changeText();
-			} else if(FlxG.keys.justPressed.P #if android || VirtualPad.buttonB.justPressed #end) {
+			} else if(FlxG.keys.justPressed.P #if android || virtualPad.buttonB.justPressed #end) {
 				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
 				changeText(1);
 			}
