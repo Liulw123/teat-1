@@ -392,7 +392,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O,#if android || virtualPad.buttonA.justPressed #end) {
+			if(FlxG.keys.justPressed.O #if android || virtualPad.buttonA.justPressed #end) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
