@@ -48,6 +48,11 @@ class ShadersOptions extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+		
+		#if android
+		addVirtualPad(LEFT_FULL, A_B);
+		addPadCamera();
+		#end
 
 		super();
 	}

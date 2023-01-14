@@ -61,6 +61,11 @@ class OptionsState extends MusicBeatState
 				removeVirtualPad();
 				#end
 				openSubState(new options.GameplaySettingsSubState());
+			case 'Shader':
+				#if android
+				removeVirtualPad();
+				#end
+				openSubState(new options.ShadersOptions());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
