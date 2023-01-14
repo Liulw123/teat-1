@@ -1339,12 +1339,13 @@ class PlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 		callOnLuas('onCreatePost', []);
-		
-				if(curSong.toLowerCase() == "bopeebo" && ClientPrefs.shaders){ //ONDE TA BOPEEBO E O NOME DA SUA MUSICA
-			addShaderToCamera('camGame', new VCRDistortionEffect(0.1, true, true, true));
-			addShaderToCamera('camHUD', new VCRDistortionEffect(0.1, true, true, true));
 
 		super.create();
+		
+						if(curSong.toLowerCase() == "bopeebo" && ClientPrefs.shaders){ //ONDE TA BOPEEBO E O NOME DA SUA MUSICA
+			addShaderToCamera('camGame', new VCRDistortionEffect(0.1, true, true, true));
+			addShaderToCamera('camHUD', new VCRDistortionEffect(0.1, true, true, true));
+			}
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -1368,6 +1369,7 @@ class PlayState extends MusicBeatState
 
 	#if (!flash && sys)
 	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
+	}
 	public function createRuntimeShader(name:String):FlxRuntimeShader
 	{
 		if(!ClientPrefs.shaders) return new FlxRuntimeShader();
