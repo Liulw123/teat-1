@@ -44,8 +44,6 @@ import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
-import openfl.filters.ShaderFilter;
-import Shaders;
 import editors.ChartingState;
 import editors.CharacterEditorState;
 import flixel.group.FlxSpriteGroup;
@@ -148,7 +146,6 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
-	
 
 	public var spawnTime:Float = 2000;
 
@@ -210,8 +207,6 @@ class PlayState extends MusicBeatState
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
-	//what
-	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
@@ -222,12 +217,6 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
-	
-	//shaders yeah
-	public var shaderUpdates:Array<Float->Void> = [];
-	public var camGameShaders:Array<ShaderEffect> = [];
-	public var camHUDShaders:Array<ShaderEffect> = [];
-	public var camOtherShaders:Array<ShaderEffect> = [];
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
@@ -329,8 +318,6 @@ class PlayState extends MusicBeatState
 	private var controlArray:Array<String>;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
-	//Shader support
-		public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
 	
 	// stores the last judgement object
 	public static var lastRating:FlxSprite;
@@ -881,12 +868,12 @@ class PlayState extends MusicBeatState
 		// "GLOBAL" SCRIPT
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
-                if(OpenFlAssets.exists("assets/scripts/" + "script.lua"))
+                if(OpenFlAssets.exists("assets/scripts/" + "ForeverEngine.lua"))
                 {
 			doPush = true;
                 }
 		if(doPush)
-			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script.lua")));
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "ForeverEngine.lua")));
 		#end
 
 		#if LUA_ALLOWED
@@ -1159,8 +1146,8 @@ class PlayState extends MusicBeatState
 		}
 	
 	yenbTxt = new FlxText(876, 648, 348);
-        yenbTxt.text = "maker is ye_nb";
-        yenbTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+        yenbTxt.text = "PORTED BY YE_NB";
+        yenbTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
         yenbTxt.scrollFactor.set();
         add(yenbTxt);
 
@@ -1345,11 +1332,6 @@ class PlayState extends MusicBeatState
 		callOnLuas('onCreatePost', []);
 
 		super.create();
-		
-						if(curSong.toLowerCase() == "bopeebo" && ClientPrefs.shaders){ //ONDE TA BOPEEBO E O NOME DA SUA MUSICA
-			addShaderToCamera('camGame', new VCRDistortionEffect(0.1, true, true, true));
-			addShaderToCamera('camHUD', new VCRDistortionEffect(0.1, true, true, true));
-			}
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -1371,8 +1353,8 @@ class PlayState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camOther;
 	}
 
-	//#if (!flash && sys)
-	// public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
+	#if (!flash && sys)
+	public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
 	public function createRuntimeShader(name:String):FlxRuntimeShader
 	{
 		if(!ClientPrefs.shaders) return new FlxRuntimeShader();
@@ -1392,7 +1374,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function initLuaShader(name:String)
+	public function initLuaShader(name:String, ?glslVersion:Int = 120)
 	{
 		if(!ClientPrefs.shaders) return false;
 
@@ -1441,7 +1423,7 @@ class PlayState extends MusicBeatState
 		FlxG.log.warn('Missing shader $name .frag AND .vert files!');
 		return false;
 	}
-	//#end
+	#end
 
 	function set_songSpeed(value:Float):Float
 	{
@@ -1556,115 +1538,9 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function addShaderToCamera(cam:String,effect:Dynamic)
-	{
-		switch(cam.toLowerCase())
-		{
-			case 'camhud' | 'hud':
-				camHUDShaders.push(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camHUDShaders)
-				{
-					newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other':
-				camOtherShaders.push(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camOtherShaders)
-				{
-					newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camOther.setFilters(newCamEffects);
-			case 'camgame' | 'game':
-				camGameShaders.push(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camGameShaders)
-				{
-					newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camGame.setFilters(newCamEffects);
-			default:
-				if(modchartSprites.exists(cam))
-				{
-					Reflect.setProperty(modchartSprites.get(cam),"shader",effect.shader);
-				}
-				else if(modchartTexts.exists(cam))
-				{
-					Reflect.setProperty(modchartTexts.get(cam),"shader",effect.shader);
-				}
-				else
-				{
-					var OBJ = Reflect.getProperty(PlayState.instance,cam);
-					Reflect.setProperty(OBJ,"shader", effect.shader);
-				}
-		}
-	}
-
-	public function removeShaderFromCamera(cam:String, effect:ShaderEffect)
-	{
-		switch (cam.toLowerCase())
-		{
-			case 'camhud' | 'hud':
-				camHUDShaders.remove(effect);
-				var newCamEffects:Array<BitmapFilter> = [];
-				for (i in camHUDShaders)
-				{
-					newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other':
-				camOtherShaders.remove(effect);
-				var newCamEffects:Array<BitmapFilter> = [];
-				for (i in camOtherShaders)
-				{
-					newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camOther.setFilters(newCamEffects);
-			default:
-				if (modchartSprites.exists(cam))
-				{
-					Reflect.setProperty(modchartSprites.get(cam), "shader", null);
-				}
-				else if (modchartTexts.exists(cam))
-				{
-					Reflect.setProperty(modchartTexts.get(cam), "shader", null);
-				}
-				else
-				{
-					var OBJ = Reflect.getProperty(PlayState.instance, cam);
-					Reflect.setProperty(OBJ, "shader", null);
-				}
-		}
-	}
-
-	public function clearShaderFromCamera(cam:String)
-	{
-		switch (cam.toLowerCase())
-		{
-			case 'camhud' | 'hud':
-				camHUDShaders = [];
-				var newCamEffects:Array<BitmapFilter> = [];
-				camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other':
-				camOtherShaders = [];
-				var newCamEffects:Array<BitmapFilter> = [];
-				camOther.setFilters(newCamEffects);
-			case 'camgame' | 'game':
-				camGameShaders = [];
-				var newCamEffects:Array<BitmapFilter> = [];
-				camGame.setFilters(newCamEffects);
-			default:
-				camGameShaders = [];
-				var newCamEffects:Array<BitmapFilter> = [];
-				camGame.setFilters(newCamEffects);
-		}
-	}
-
 	public function getLuaObject(tag:String, text:Bool=true):FlxSprite {
 		if(modchartSprites.exists(tag)) return modchartSprites.get(tag);
 		if(text && modchartTexts.exists(tag)) return modchartTexts.get(tag);
-		if(modchartBackdrops.exists(tag)) return modchartBackdrops.get(tag);
 		if(variables.exists(tag)) return variables.get(tag);
 		return null;
 	}
@@ -3107,7 +2983,7 @@ class PlayState extends MusicBeatState
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);		
-		scoreTxt.text = 'Score: ' + songScore + ' | ye_nb | Misses: ' + songMisses + ' | Rating: ' + ratingName;
+		scoreTxt.text = 'Score: ' + songScore + ' | PORT BY YE_NB//NMSLQ | Misses: ' + songMisses + ' | Rating: ' + ratingName;
 		if(ratingName != '?')
 			scoreTxt.text += ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;
 		if(botplayTxt.visible) {
@@ -3147,20 +3023,10 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-			if (iconP1.animation.frames == 3) {
-			if (healthBar.percent < 20)
-				iconP1.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent >80)
-				iconP1.animation.curAnim.curFrame = 2;
-			else
-				iconP1.animation.curAnim.curFrame = 0;
-		} 
-		else {
-			if (healthBar.percent < 20)
-				iconP1.animation.curAnim.curFrame = 1;
-			else
-				iconP1.animation.curAnim.curFrame = 0;
-		}
+		if (healthBar.percent < 20)
+			iconP1.animation.curAnim.curFrame = 1;
+		else
+			iconP1.animation.curAnim.curFrame = 0;
 
 		if (healthBar.percent > 80)
 			iconP2.animation.curAnim.curFrame = 1;
@@ -3415,10 +3281,6 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
-		for (i in shaderUpdates) {
-		  i(elapsed);
-		}
-	}
 	}
 
 	function openPauseMenu()
@@ -3460,6 +3322,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
