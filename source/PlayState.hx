@@ -210,6 +210,8 @@ class PlayState extends MusicBeatState
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
+	//what
+	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
