@@ -1369,7 +1369,7 @@ class PlayState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camOther;
 	}
 
-	#if (!flash && sys)
+	//#if (!flash && sys)
 	// public var runtimeShaders:Map<String, Array<String>> = new Map<String, Array<String>>();
 	public function createRuntimeShader(name:String):FlxRuntimeShader
 	{
@@ -1439,7 +1439,7 @@ class PlayState extends MusicBeatState
 		FlxG.log.warn('Missing shader $name .frag AND .vert files!');
 		return false;
 	}
-	#end
+	//#end
 
 	function set_songSpeed(value:Float):Float
 	{
