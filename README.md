@@ -1,8 +1,8 @@
-# Friday Night Funkin' - Psych Engine
+# Friday Night Funkin' - Test Engine
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
 ## TEST ENGINE
-- this is a bad engine,maker is me😎
+- its name is test engine,maker is ye_nb, this is be based on Psych engine.
 
 ## Installation:
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
@@ -20,14 +20,13 @@ If you want video support on your mod, simply do `haxelib install hxCodec` on a 
 
 otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
 
-## Android Port Credits:
-* Its-me-a-guy (idklool) - Psych Engine Port and Removed Mod Folder
-* Dxgamer - Coder Help
-
-## Credits:
+## PE Credits:
 * Shadow Mario - Programmer
 * RiverOaken - Artist
 * Yoshubs - Assistant Programmer
+
+## Maker:
+* ye_nb
 
 ### Special Thanks
 * bbpanzu - Ex-Programmer
